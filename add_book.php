@@ -2,13 +2,11 @@
 session_start();
 include 'koneksi.php'; 
 
-// Ambil data lama jika ada error
 $old_data = $_SESSION['old_data'] ?? [];
 $errors = $_SESSION['errors'] ?? [];
 $error = $_SESSION['error'] ?? '';
 $success = $_SESSION['success'] ?? '';
 
-// Hapus session setelah digunakan
 unset($_SESSION['old_data'], $_SESSION['errors'], $_SESSION['error'], $_SESSION['success']);
 ?>
 <!DOCTYPE html>
@@ -99,7 +97,6 @@ unset($_SESSION['old_data'], $_SESSION['errors'], $_SESSION['error'], $_SESSION[
     <main>
         <h2>Tambah Buku Baru</h2>
         
-        <!-- Alert untuk menampilkan pesan -->
         <?php if (!empty($success)): ?>
             <div class="alert alert-success">
                 <?= htmlspecialchars($success) ?>
@@ -207,17 +204,14 @@ unset($_SESSION['old_data'], $_SESSION['errors'], $_SESSION['error'], $_SESSION[
             const form = document.getElementById('bookForm');
             const submitBtn = document.getElementById('submitBtn');
             
-            // Form validation
             form.addEventListener('submit', function(e) {
                 let isValid = true;
                 const requiredFields = form.querySelectorAll('[required]');
                 
-                // Remove previous error styling
                 document.querySelectorAll('.form-group').forEach(group => {
                     group.classList.remove('has-error');
                 });
                 
-                // Validate each required field
                 requiredFields.forEach(field => {
                     const formGroup = field.closest('.form-group');
                     
@@ -226,7 +220,6 @@ unset($_SESSION['old_data'], $_SESSION['errors'], $_SESSION['error'], $_SESSION[
                         isValid = false;
                     }
                     
-                    // Additional validation for specific fields
                     if (field.type === 'number' && field.value < 0) {
                         formGroup.classList.add('has-error');
                         isValid = false;
@@ -239,17 +232,14 @@ unset($_SESSION['old_data'], $_SESSION['errors'], $_SESSION['error'], $_SESSION[
                     return false;
                 }
                 
-                // Show loading state
                 submitBtn.classList.add('loading');
                 submitBtn.disabled = true;
                 submitBtn.value = 'Menyimpan...';
                 
-                // Prevent double submission
                 form.style.opacity = '0.7';
                 form.style.pointerEvents = 'none';
             });
             
-            // Auto-hide alerts after 5 seconds
             const alerts = document.querySelectorAll('.alert');
             alerts.forEach(alert => {
                 setTimeout(() => {
@@ -261,7 +251,6 @@ unset($_SESSION['old_data'], $_SESSION['errors'], $_SESSION['error'], $_SESSION[
                 }, 5000);
             });
             
-            // Real-time validation feedback
             const inputs = form.querySelectorAll('input, select');
             inputs.forEach(input => {
                 input.addEventListener('blur', function() {

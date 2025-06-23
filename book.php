@@ -178,6 +178,11 @@ unset($_SESSION['success']);
                 FROM buku b
                 INNER JOIN kategori k ON b.id_kategori = k.id_kategori
             ";
+            // $sql = "
+            //     SELECT judul, pengarang, nama_kategori, harga, stok
+            //     FROM view_buku_lengkap
+            //     ";
+
 
             $where_clause = [];
             $bind_params = '';
